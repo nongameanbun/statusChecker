@@ -34,13 +34,16 @@ class MyPos :
 
     def check(self, stack = 0) :
         
-        detection_res = find_in_screen_multiple("me, me_L, me_R", xywh="0, 0, 300, 250", confs="0.9, 0.99, 0.99")
-        _me   = detection_res.get("me",   [])
-        _me_L = detection_res.get("me_L", [])
-        _me_R = detection_res.get("me_R", [])
-        me   = _me[0]   if _me   else None
-        me_L = _me_L[0] if _me_L else None
-        me_R = _me_R[0] if _me_R else None
+        try :
+            detection_res = find_in_screen_multiple("me, me_L, me_R", xywh="0, 0, 300, 250", confs="0.9, 0.99, 0.99")
+            _me   = detection_res.get("me",   [])
+            _me_L = detection_res.get("me_L", [])
+            _me_R = detection_res.get("me_R", [])
+            me   = _me[0]   if _me   else None
+            me_L = _me_L[0] if _me_L else None
+            me_R = _me_R[0] if _me_R else None
+        except Exception as e:
+            me = me_L = me_R = None
         
         if(me == None):
             if(me_L != None):
